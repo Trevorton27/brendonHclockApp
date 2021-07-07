@@ -1,0 +1,87 @@
+<!-- // My Process:
+// sectioned off a variables section at the top
+// wrote a function for displaying the time
+// looked up document.write()
+// tested function with raw numbers
+// explored the Date() attributes
+// wrote code to pull out the pieces I wanted from Date()
+// Passed those number to function
+// ISSUE: parameters of function were not evaluated, the code simply passed the code
+// tried eval() - FAIL
+// SOLUTION: write a separate code block to evaluate numbers
+// ISSUE: a while loop didn't automatically update the html after I displayed the date once (real bummer!)
+// checked out the code in your example (if you get stumped, look for similar code blocks and hunt)
+// explored DIV tag and DOM
+// it looks like setAttribute will be helpful
+// figured out the getElement[s] with an s require a pointer formated [0]
+// found set interval
+// moved code to capture current time into the function
+// SOLUTION: DOM, SetInterval
+// play with formatting -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock</title>
+</head>
+<body>
+  <div id="Title">
+    <h1>Simple Digital Clock</h1>
+  </div>
+  <div id="Clock">
+    <h1></h1>
+  </div>
+  <div id="Date">
+    <h1></h1>
+  </div> 
+  
+  <script>
+    const date = document.getElementById("Date").getElementsByTagName("h1")[0];
+    const time = document.getElementById("Clock").getElementsByTagName("h1")[0];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var timeAMPM = null;
+    var isMilitary = true;
+    
+    function updateTime(timeNow, isMilitary) {
+      timeHoursInMilitary = timeNow.getHours().toLocaleString(undefined, {minimumIntegerDigits: 2});
+      timeMinutes = timeNow.getMinutes().toLocaleString(undefined, {minimumIntegerDigits: 2});
+      timeSeconds = timeNow.getSeconds().toLocaleString(undefined, {minimumIntegerDigits: 2});
+      
+      if (isMilitary  == false && timeHoursInMilitary > 12) {
+        timeHoursInMilitary = timeHoursInMilitary - 12;
+        timeAMPM = " PM";
+      } else if (isMilitary == false && timeHoursInMilitary <= 12) {
+        timeAMPM = " AM";
+      } else {
+        timeAMPM = "";
+      }
+      timeDisplay = timeHoursInMilitary + " : " + timeMinutes + " : " + timeSeconds + timeAMPM
+      time.innerHTML = timeDisplay;
+    }
+    
+    function updateDate(timeNow) {
+      dateMonth = months[timeNow.getMonth()];
+      dateDay = days[timeNow.getDay()];
+      dateDate = timeNow.getDate()
+      dateYear = timeNow.getFullYear();
+      dateDisplay = dateDay + " - " + dateMonth + " / " + dateDate + " / " + dateYear 
+      date.innerHTML = dateDisplay
+    }
+    
+    function combine(isMilitary) {
+      timeNow = new Date();
+      updateTime(timeNow, isMilitary);
+      updateDate(timeNow);
+    }
+
+    let x = setInterval(combine, 1000, isMilitary);
+
+  </script> 
+
+</body>
+
+</html>
