@@ -22,6 +22,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,56 +30,14 @@
 </head>
 <body>
   <div id="Title">
-    <h1>Simple Digital Clock</h1>
-  </div>
-  <div id="Clock">
-    <h1></h1>
-  </div>
-  <div id="Date">
-    <h1></h1>
-  </div> 
+    <h1>Simple Digital Clock
+      <h2 class="date"></h2>
+      <h2 class="time"></h2>
+    </h1>
+  </div>  
   
-  <script>
-    const date = document.getElementById("Date").getElementsByTagName("h1")[0];
-    const time = document.getElementById("Clock").getElementsByTagName("h1")[0];
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    var timeAMPM = null;
-    var isMilitary = true;
+  <script src="script.js">
     
-    function updateTime(timeNow, isMilitary) {
-      timeHoursInMilitary = timeNow.getHours().toLocaleString(undefined, {minimumIntegerDigits: 2});
-      timeMinutes = timeNow.getMinutes().toLocaleString(undefined, {minimumIntegerDigits: 2});
-      timeSeconds = timeNow.getSeconds().toLocaleString(undefined, {minimumIntegerDigits: 2});
-      
-      if (isMilitary  == false && timeHoursInMilitary > 12) {
-        timeHoursInMilitary = timeHoursInMilitary - 12;
-        timeAMPM = " PM";
-      } else if (isMilitary == false && timeHoursInMilitary <= 12) {
-        timeAMPM = " AM";
-      } else {
-        timeAMPM = "";
-      }
-      timeDisplay = timeHoursInMilitary + " : " + timeMinutes + " : " + timeSeconds + timeAMPM
-      time.innerHTML = timeDisplay;
-    }
-    
-    function updateDate(timeNow) {
-      dateMonth = months[timeNow.getMonth()];
-      dateDay = days[timeNow.getDay()];
-      dateDate = timeNow.getDate()
-      dateYear = timeNow.getFullYear();
-      dateDisplay = dateDay + " - " + dateMonth + " / " + dateDate + " / " + dateYear 
-      date.innerHTML = dateDisplay
-    }
-    
-    function combine(isMilitary) {
-      timeNow = new Date();
-      updateTime(timeNow, isMilitary);
-      updateDate(timeNow);
-    }
-
-    let x = setInterval(combine, 1000, isMilitary);
 
   </script> 
 
