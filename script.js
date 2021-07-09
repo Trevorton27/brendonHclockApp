@@ -25,9 +25,9 @@ var isMilitary = false;
     
 function updateTime(timeNow, isMilitary) {
   const time = document.getElementById("Title").getElementsByTagName("h2")[1];
-  var timeHoursInMilitary = timeNow.getHours().toLocaleString(undefined, {minimumIntegerDigits: 2});
-  const timeMinutes = timeNow.getMinutes().toLocaleString(undefined, {minimumIntegerDigits: 2});
-  const timeSeconds = timeNow.getSeconds().toLocaleString(undefined, {minimumIntegerDigits: 2});
+  var timeHoursInMilitary = timeNow.getHours();
+  const timeMinutes = timeNow.getMinutes();
+  const timeSeconds = timeNow.getSeconds();
   
   if (isMilitary  == false && timeHoursInMilitary > 12) {
     timeHoursInMilitary = timeHoursInMilitary - 12;
@@ -38,7 +38,7 @@ function updateTime(timeNow, isMilitary) {
     timeAMPM = "";
   }
         
-  time.innerHTML = `${timeHoursInMilitary}:${timeMinutes}:${timeSeconds}${timeAMPM}`;
+  time.innerHTML = `${renderLeadingZero(timeHoursInMilitary)}:${renderLeadingZero(timeMinutes)}:${renderLeadingZero(timeSeconds)}${timeAMPM}`;
 }
     
 function updateDate(timeNow) {
@@ -50,7 +50,11 @@ function updateDate(timeNow) {
   
   date.innerHTML = `${dateDay} ${dateMonth} ${dateSuffix(dateDate)}, ${dateYear}`;
   }
-    
+
+function renderLeadingZero (x) {
+  return x < 10 ? "0" + x : x
+}
+
 function dateSuffix(x) {
   suffix = ["st", 'nd', 'rd', 'th'];
   lastDigit = x.toString().split('').pop();
@@ -76,5 +80,5 @@ function combine(isMilitary) {
   updateDate(timeNow);
 }
 
-combine();
+combine(isMilitary);
 setInterval(combine, 1000, isMilitary);
