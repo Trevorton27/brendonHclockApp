@@ -2,6 +2,7 @@
 My own rendition of a digital clock.
 
 # Summary
+[Live Render](https://brendonh18.github.io/BasicDigitalClock/)
 This was my first experience with HTML, CSS, and JavaScript languages. I used this project to experiment. This app really helped me understand how each element interacts with the others.
 
 # Author
