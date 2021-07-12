@@ -1,23 +1,4 @@
-<!-- // My Process:
-// sectioned off a variables section at the top
-// wrote a function for displaying the time
-// looked up document.write()
-// tested function with raw numbers
-// explored the Date() attributes
-// wrote code to pull out the pieces I wanted from Date()
-// Passed those number to function
-// ISSUE: parameters of function were not evaluated, the code simply passed the code
-// tried eval() - FAIL
-// SOLUTION: write a separate code block to evaluate numbers
-// ISSUE: a while loop didn't automatically update the html after I displayed the date once (real bummer!)
-// checked out the code in your example (if you get stumped, look for similar code blocks and hunt)
-// explored DIV tag and DOM
-// it looks like setAttribute will be helpful
-// figured out the getElement[s] with an s require a pointer formated [0]
-// found set interval
-// moved code to capture current time into the function
-// SOLUTION: DOM, SetInterval
-// play with formatting -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +12,9 @@
 <body>
   <div id="Title">
     <h1>Simple Digital Clock
-      <h2 class="date"></h2>
-      <h2 class="time"></h2>
+      <h2 id="time"></h2>
+      <h2 id="date"></h2>
+ 
     </h1>
   </div>  
   

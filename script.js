@@ -1,84 +1,83 @@
-const months = [
-"January", 
-"February", 
-"March", 
-"April", 
-"May", 
-"June", 
-"July", 
-"August", 
-"September", 
-"October", 
-"November", 
-"December"];
-
-const days = [
-  "Sunday", 
-  "Monday", 
-  "Tuesday", 
-  "Wednesday", 
-  "Thursday", 
-  "Friday", 
-  "Saturday"];
-
-var isMilitary = false;
-    
-function updateTime(timeNow, isMilitary) {
-  const time = document.getElementById("Title").getElementsByTagName("h2")[1];
-  var timeHoursInMilitary = timeNow.getHours();
+function displayTime() {
+  const timeNow = new Date();
+  const time = document.getElementById('time');
+  var timeHours = timeNow.getHours();
   const timeMinutes = timeNow.getMinutes();
   const timeSeconds = timeNow.getSeconds();
-  
-  if (isMilitary  == false && timeHoursInMilitary > 12) {
-    timeHoursInMilitary = timeHoursInMilitary - 12;
-    timeAMPM = " PM";
-  } else if (isMilitary == false && timeHoursInMilitary <= 12) {
-    timeAMPM = " AM";
-  } else {
-    timeAMPM = "";
+  const isAm = timeHours < 12 || timeHours === 0;
+  let amPm = isAm ? 'AM' : 'PM';
+
+  time.innerText = `${formatHour(timeHours)}:${renderLeadingZero(
+    timeMinutes
+  )}:${renderLeadingZero(timeSeconds)}${amPm}`;
+}
+
+function formatHour(hour) {
+  hour = hour >= 13 ? hour - 12 : hour;
+
+  hour = hour === 0 ? hour + 12 : hour;
+  return hour;
+}
+
+function displayDate() {
+  const dateNow = new Date();
+  const date = document.getElementById('date');
+  const dateMonth = months[dateNow.getMonth()];
+  const dateDay = days[dateNow.getDay()];
+  const dateDate = dateNow.getDate();
+  const dateYear = dateNow.getFullYear();
+
+  date.innerText = `${dateDay} ${dateMonth} ${dateSuffix(
+    dateDate
+  )}, ${dateYear}`;
+}
+
+function renderLeadingZero(number) {
+  return number < 10 ? '0' + number : number;
+}
+
+function dateSuffix(date) {
+  if (date < 10 || date > 20) {
+    switch (date % 10) {
+      case 1:
+        return `${date}st`;
+      case 2:
+        return `${date}nd`;
+      case 3:
+        return `${date}rd`;
+    }
   }
-        
-  time.innerHTML = `${renderLeadingZero(timeHoursInMilitary)}:${renderLeadingZero(timeMinutes)}:${renderLeadingZero(timeSeconds)}${timeAMPM}`;
-}
-    
-function updateDate(timeNow) {
-  const date = document.getElementById("Title").getElementsByTagName("h2")[0];
-  const dateMonth = months[timeNow.getMonth()];
-  const dateDay = days[timeNow.getDay()];
-  const dateDate = timeNow.getDate();
-  const dateYear = timeNow.getFullYear();
-  
-  date.innerHTML = `${dateDay} ${dateMonth} ${dateSuffix(dateDate)}, ${dateYear}`;
-  }
-
-function renderLeadingZero (x) {
-  return x < 10 ? "0" + x : x
+  return `${date}th`;
 }
 
-function dateSuffix(x) {
-  suffix = ["st", 'nd', 'rd', 'th'];
-  lastDigit = x.toString().split('').pop();
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 
-  if (x > 10 && x < 20) {
-    x = x + suffix[3];
-  } else if (lastDigit == 1) {
-    x = x + suffix[0];
-  } else if (lastDigit == 2) {
-    x = x + suffix[1];
-  } else if (lastDigit == 3) {
-    x = x + suffix[2];
-  } else { 
-    x = x + suffix[3];
-  }
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
 
-  return x;
-}
-    
-function combine(isMilitary) {
-  timeNow = new Date();
-  updateTime(timeNow, isMilitary);
-  updateDate(timeNow);
-}
-
-combine(isMilitary);
-setInterval(combine, 1000, isMilitary);
+displayTime();
+displayDate();
+setInterval(() => {
+  displayTime();
+  displayDate();
+});
